@@ -65,4 +65,7 @@ test('frontend does not send data or persist it in browser storage', () => {
   assert.match(html, /Мессенджеры не подключены/);
   assert.match(html, /id="next-demo"/);
   assert.doesNotMatch(html, /https?:\/\//);
+  for (const asset of ['styles.css', 'demo-store.js', 'app.js']) {
+    assert.ok(html.includes('./' + asset), `nested deployments must load ${asset} relatively`);
+  }
 });
