@@ -1,0 +1,7 @@
+{
+  "name": "inbox-public-training-demo",
+  "version": "1.0.0",
+  "private": true,
+  "engines": { "node": ">=18" },
+  "scripts": { "test": "node --test test.cjs" }
+}

@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+    <title>Единая очередь — учебная демонстрация</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./demo-store.js" defer></script>
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <header class="topbar"><div class="topbar-inner"><a class="brand" href="./">Обращения <span>demo</span></a><span class="mode"><i></i> Учебная демонстрация</span></div></header>
+  <main class="container">
+    <div class="heading"><div><p class="eyebrow">ПРОВЕРКА РАБОЧЕГО ПРОЦЕССА</p><h1>Единая очередь</h1><p>Выберите обращение, подготовьте черновик и отметьте следующий шаг.</p></div><div class="heading-actions"><button type="button" id="load-demo" class="secondary">Загрузить учебные сообщения</button><button type="button" id="next-demo" class="secondary">Показать новое учебное сообщение</button></div></div>
+    <section class="notice" aria-label="Условия демонстрации"><strong>Только вымышленные сообщения.</strong> Не вносите реальные сообщения, имена, контакты, документы или другие данные клиентов. Записи и черновики хранятся только в памяти этой вкладки и исчезнут при её обновлении или закрытии. Другие вкладки работают отдельно. Мессенджеры не подключены, сообщения никому не отправляются; ИИ не используется.</section>
+    <p id="feedback" class="feedback" role="status" aria-live="polite"></p>
+    <div class="layout">
+      <section class="panel inbox" aria-labelledby="inbox-title">
+        <div class="panel-heading"><div><p class="eyebrow">РАБОЧИЙ СПИСОК</p><h2 id="inbox-title">Обращения <span class="count" id="result-count">0</span></h2></div></div>
+        <div class="filters"><label class="search-label">Поиск<input type="search" id="search" placeholder="По тексту или аккаунту" autocomplete="off"></label><label>Канал<select id="channel-filter"><option value="">Все каналы</option><option value="whatsapp">WhatsApp</option><option value="telegram">Telegram</option><option value="max">MAX</option></select></label><label>Статус<select id="status-filter"><option value="">Все статусы</option><option value="new">Новые</option><option value="in_progress">В работе</option><option value="ready">Готовы к проверке</option><option value="done">Завершены</option></select></label></div>
+        <div class="message-list" id="message-list" aria-label="Список обращений"></div>
+      </section>
+      <section class="panel detail" aria-labelledby="detail-title">
+        <div id="detail-empty" class="detail-empty"><div class="empty-icon" aria-hidden="true">✦</div><h2 id="detail-title">Выберите обращение</h2><p>Здесь появятся сообщение и поле для черновика ответа.</p></div>
+        <div id="detail-content" hidden>
+          <div id="hidden-selection" class="filter-warning" role="status" hidden>Выбранное обращение скрыто текущими фильтрами; справа показано выбранное ранее сообщение. <button type="button" id="clear-filters">Сбросить фильтры</button></div>
+          <section id="conflict" class="conflict" aria-labelledby="conflict-title" hidden>
+            <h3 id="conflict-title">Обращение изменилось</h3>
+            <p>Сохранение не выполнено. Ваш текст остаётся в поле. Посмотрите актуальные данные перед продолжением.</p>
+            <button type="button" id="conflict-refresh" class="secondary">Посмотреть актуальные данные</button>
+            <div id="conflict-current" hidden>
+              <p id="conflict-message"></p>
+              <p id="conflict-status"></p>
+              <p>Актуальный сохранённый черновик:</p>
+              <pre id="conflict-draft"></pre>
+              <button type="button" id="conflict-continue" class="secondary" hidden>Продолжить с моим текстом</button>
+              <button type="button" id="conflict-use-saved" class="secondary" hidden>Использовать сохранённый черновик</button>
+            </div>
+          </section>
+          <div class="detail-header"><div><p class="eyebrow">ВХОДЯЩЕЕ СООБЩЕНИЕ</p><h2 id="detail-channel"></h2><p class="muted" id="detail-account"></p></div><span id="detail-status" class="badge"></span></div>
+          <div class="message-body" id="detail-text"></div>
+          <section class="draft-section" aria-labelledby="draft-title"><h3 id="draft-title">Черновик ответа</h3><p class="muted">Начните с шаблона или напишите сами. Перед любым использованием проверьте текст.</p><div class="template-row"><label>Шаблон<select id="template-select"><option value="">Выберите шаблон</option></select></label><button type="button" id="insert-template" class="secondary">Подставить</button></div><label for="draft">Текст черновика</label><textarea id="draft" rows="7" maxlength="2000" placeholder="Введите учебный текст ответа"></textarea><div class="draft-actions"><button type="button" id="save-draft" class="primary">Сохранить черновик</button><button type="button" id="copy-draft" class="secondary">Копировать</button></div><p class="muted copy-hint" id="copy-hint" aria-live="polite">Если копирование недоступно, выделите текст и скопируйте вручную.</p></section>
+          <section class="status-section" aria-labelledby="status-title"><h3 id="status-title">Статус</h3><p class="muted">Статус меняется только по вашему действию. Это не отправляет ответ.</p><div class="status-actions"><button type="button" data-status="in_progress" class="secondary">В работу</button><button type="button" data-status="ready" class="secondary">Отметить готовым</button><button type="button" data-status="done" class="secondary">Завершить</button><button type="button" data-status="new" class="quiet">Вернуть в новые</button></div></section>
+        </div>
+      </section>
+    </div>
+    <footer>Учебное приложение · данные не предназначены для работы с реальными клиентами</footer>
+  </main>
+</body>
+</html>
