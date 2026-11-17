@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Визовый справочник</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header><div class="header-inner"><strong>Визовый справочник</strong><span>Локально на устройстве</span></div></header>
+  <main>
+    <div class="intro"><div><h1>Страны и ответы</h1><p>Списки документов, сроки и шаблоны для работы с обращениями.</p></div></div>
+    <div class="notice">Справочник стран пока пуст. Заполните его по своим проверенным источникам и укажите дату проверки. Шаблоны требуют проверки перед использованием.</div>
+    <div class="toolbar">
+      <nav aria-label="Разделы справочника"><button type="button" class="tab active" id="countries-tab" aria-pressed="true">Страны и визы</button><button type="button" class="tab" id="templates-tab" aria-pressed="false">Шаблоны ответов</button></nav>
+      <div class="backup"><button type="button" id="export" class="secondary">Сохранить копию</button><label class="button secondary" for="import">Загрузить копию</label><input type="file" id="import" accept="application/json,.json" hidden></div>
+    </div>
+    <p class="feedback" id="feedback" role="status" aria-live="polite"></p>
+    <div class="layout">
+      <section class="panel list-panel" aria-labelledby="list-title">
+        <div class="list-head"><div class="list-heading"><h2 id="list-title">Страны и визы</h2><button class="primary" id="add" type="button">Добавить</button></div><label for="search">Поиск</label><input type="search" id="search" placeholder="Название или текст" autocomplete="off"></div>
+        <div id="items" class="items"></div>
+      </section>
+      <section class="panel editor" aria-labelledby="editor-title">
+        <div id="empty"><h2 id="editor-title">Выберите запись</h2><p>Добавьте страну или выберите шаблон ответа.</p></div>
+        <form id="form" hidden>
+          <div class="editor-heading"><h2 id="form-title">Запись</h2><button class="danger" id="remove" type="button">Удалить</button></div>
+          <div id="country-fields">
+            <div class="row"><label>Страна<input name="country" maxlength="150"></label><label>Тип визы<input name="visa" maxlength="150" placeholder="Например, туристическая"></label></div>
+            <label>Список документов<textarea name="documents" rows="5" placeholder="Добавьте перечень документов"></textarea></label>
+            <label>Сроки рассмотрения<textarea name="timing" rows="3" placeholder="Добавьте проверенные сведения"></textarea></label>
+            <label>Биометрия<textarea name="biometrics" rows="3" placeholder="Где и как сдаётся"></textarea></label>
+            <label>Где хранится список или дополнительная информация<textarea name="location" rows="2" placeholder="Название папки, документа или ссылка"></textarea></label>
+            <div class="row"><label>Источник<input name="source" placeholder="Ссылка или название источника"></label><label>Дата проверки<input name="checked" type="date"></label></div>
+          </div>
+          <div id="template-fields" hidden><label>Название шаблона<input name="title" maxlength="150"></label><label>Текст ответа<textarea name="text" rows="10"></textarea></label><p class="hint">Поля в квадратных скобках заполните перед использованием.</p></div>
+          <div class="actions"><button type="submit" class="primary">Сохранить</button><button type="button" id="copy" class="secondary" hidden>Копировать ответ</button></div>
+        </form>
+      </section>
+    </div>
+    <footer>Данные хранятся в этом браузере. Сохраните копию, чтобы перенести их на другое устройство или восстановить после очистки браузера.</footer>
+  </main>
+</body>
+</html>

@@ -1,0 +1,17 @@
+# Шаблон для отдельного согласованного HTTPS-адреса.
+# Укажите LENA_ALERTS_HOST в окружении, затем проверьте конфигурацию и доступ.
+{$LENA_ALERTS_HOST} {
+    @events {
+        method POST
+        path /v1/events
+    }
+    handle @events {
+        request_body {
+            max_size 4096
+        }
+        reverse_proxy 127.0.0.1:8765
+    }
+    handle {
+        respond "Not found" 404
+    }
+}

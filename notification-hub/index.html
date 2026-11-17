@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Обращения — уведомления</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <header><div><span class="mark">●</span> Обращения</div><span class="local">На этом компьютере</span></header>
+  <main>
+    <div class="heading"><div><h1>Уведомления</h1><p>Первые сообщения и звонки за день.</p></div><button id="refresh" type="button">Обновить</button></div>
+    <div class="status" id="status" role="status" aria-live="polite">Загружаем уведомления…</div>
+    <section aria-label="Список уведомлений"><div class="column-head"><span>Обращение</span><span>Время</span><span>Почта</span></div><ul id="alerts"></ul><div id="empty" hidden>Пока уведомлений нет.</div></section>
+    <p class="note">Показываются последние 100 записей. Имена и тексты сообщений не передаются.</p>
+  </main>
+</body>
+</html>
